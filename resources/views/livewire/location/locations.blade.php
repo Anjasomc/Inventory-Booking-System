@@ -1,5 +1,5 @@
 <div>
-    <x-table.controls name="Location" />
+    <x-table.controls name="Location" perPage="{{ $perPage }}" />
 
     <div class="row">
         <div wire:poll.10s class="col-lg-12">
@@ -91,7 +91,7 @@
 
             <x-slot name="content">
                 <x-input.group for="name" label="Name" :error="$errors->first('editing.name')">
-                    <x-input.text wire:model="editing.name" id="name" />
+                    <x-input.text wire:model.defer="editing.name" id="name" />
                 </x-input.group>
             </x-slot>
 

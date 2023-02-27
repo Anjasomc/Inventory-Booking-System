@@ -14,15 +14,19 @@
                             <b>End Date</b><br>{{ $setup->loan->end_date_time }}<br><br>
                             <b>Resources</b><br>
                             @foreach ($setup->loan->assets as $asset)
-                                {{ $asset->name }} ({{ $asset->tag }})<br>
+                                @if($asset->pivot->returned)
+                                    <s>{{ $asset->name }} ({{ $asset->tag }})</s><br>
+                                @else
+                                    {{ $asset->name }} ({{ $asset->tag }})<br>
+                                @endif
                             @endforeach
                             <br>
                             <b>Additional Details</b><br>{{ $setup->loan->details }}<br><br>
-                            <center>If you have any queries about this {{ lcfirst($bookingTitle) }}, contact us at <a href="mailto:"></a></center>
+                            <center>If you have any queries about this {{ lcfirst($bookingTitle) }}, contact us at <a href="mailto:{{ Config::get('mail.reply_to.address') }}">{{ Config::get('mail.reply_to.address') }}</a></center>
                         </td>
                     </tr>
                     <tr>
-                        <td valign="top" style="color:#999; padding:20px; text-align:center; font-size:12px; font-family:'Trebuchet MS',Arial,Helvetica,sans-serif"><p>{{ env('APP_NAME') }}</p></td>
+                        <td valign="top" style="color:#999; padding:20px; text-align:center; font-size:12px; font-family:'Trebuchet MS',Arial,Helvetica,sans-serif"><p>{{ Config::get('app.name') }}</p></td>
                     </tr>
                 </tbody>
             </table>

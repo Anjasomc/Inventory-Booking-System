@@ -2,9 +2,10 @@
     'placeholder' => null,
     'clearSelection' => null,
     'disabledSelected' => null,
-    'refreshData' => null,
     'iteration' => null,
-    'fullWidth' => false
+    'fullWidth' => false,
+    'inModal' => false,
+    'noSearch' => false
 ])
 
 @if($iteration)<div wire:key='"select-field-version-{{ $iteration }}'>@endif
@@ -18,6 +19,9 @@
             theme: 'bootstrap-5',
             placeholder: '{{ $placeholder }}',
             allowClear: true,
+            @if($noSearch)
+            minimumResultsForSearch: Infinity,
+            @endif
         });
 
         select2.on('select2:select', (event) => {
@@ -40,19 +44,16 @@
 
         //When the modal opened make sure the options are cleared out so they can be reloaded
         //again with the correct data (which bookings are avaiable etc)
+        @if($inModal)
         window.livewire.on('showModal', (data) => {
             console.log('Recieved showModal event');
             console.log(data);
             console.log(@entangle('editing.loan.start_date_time'));
-            if(data == &quot;create&quot;){
-                @if($refreshData)
-                    $('#{{ $attributes->get('id') }}').select2().empty();
-                @endif
-            }
 
             //This allows us the wire:model initial value to be applied to the Select2 box.
             $('#{{ $attributes->get('id') }}').val(@entangle($attributes->wire('model')).initialValue).trigger('change');
         })
+        @endif
 
         "
 >

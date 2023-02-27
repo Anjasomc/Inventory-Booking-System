@@ -1,5 +1,5 @@
 <div>
-    <x-table.controls name="Setup" />
+    <x-table.controls name="Setup" perPage="{{ $perPage }}" />
 
     <div class="row">
         <div wire:poll.10s class="col-lg-12">
@@ -82,9 +82,9 @@
                         </x-table.cell>
                         <x-table.cell class="col">
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <x-button.success wire:click="complete({{ $setup->id }})" ><x-loading wire:target="complete({{ $setup->loan->id }})" />Complete</x-button.success>
-                                <x-button.danger wire:click="cancel({{ $setup->id }})" ><x-loading wire:target="cancel({{ $setup->loan->id }})" />Cancel</x-button.danger>
-                                <x-button.primary wire:click="edit({{ $setup->id }})" ><x-loading wire:target="edit({{ $setup->loan->id }})" />Edit</x-button.primary>
+                                <x-button.success wire:click="complete({{ $setup->id }})" ><x-loading wire:target="complete({{ $setup->id }})" />Complete</x-button.success>
+                                <x-button.danger wire:click="cancel({{ $setup->id }})" ><x-loading wire:target="cancel({{ $setup->id }})" />Cancel</x-button.danger>
+                                <x-button.primary wire:click="edit({{ $setup->id }})" ><x-loading wire:target="edit({{ $setup->id }})" />Edit</x-button.primary>
                             </div>
                         </x-table.cell>
                     </x-table.row>
@@ -130,12 +130,12 @@
                     <div class="col-md-6">
                         <!-- Title -->
                         <x-input.group label="Title" for="title" :error="$errors->first('editing.title')">
-                            <x-input.text wire:model="editing.title" id="title" />
+                            <x-input.text wire:model.defer="editing.title" id="title" />
                         </x-input.group>
 
                         <!-- Start Date Time -->
                         <x-input.group label="Start Date" for="start_date_time" :error="$errors->first('editing.loan.start_date_time')">
-                            <x-input.datetime wire:model.defer="editing.loan.start_date_time" id="start_date_time" />
+                            <x-input.datetime wire:model="editing.loan.start_date_time" id="start_date_time" />
                         </x-input.group>
 
                         <!-- End Date Time -->
@@ -145,7 +145,7 @@
 
                         <!-- Users -->
                         <x-input.group label="Users" for="user_id" :error="$errors->first('editing.loan.user_id')">
-                            <x-input.select wire:model="editing.loan.user_id" id="user_id" placeholder="Select User" fullWidth>
+                            <x-input.select wire:model.defer="editing.loan.user_id" id="user_id" placeholder="Select User" fullWidth inModal>
                                 @foreach ($users as $user)
                                     <option value="{{ $user->id }}">{{ $user->forename }} {{ $user->surname }}</option>
                                 @endforeach
@@ -154,7 +154,7 @@
 
                         <!-- Location -->
                         <x-input.group label="Location" for="location_id" :error="$errors->first('editing.location_id')">
-                            <x-input.select wire:model="editing.location_id" id="location_id" placeholder="Select Location" fullWidth>
+                            <x-input.select wire:model.defer="editing.location_id" id="location_id" placeholder="Select Location" fullWidth inModal>
                                 @foreach ($locations as $location)
                                     <option value="{{ $location->id }}">{{ $location->name }}</option>
                                 @endforeach
@@ -163,7 +163,7 @@
 
                         <!-- Equipment -->
                         <x-input.group label="Equipment" for="equipment_id" :error="$errors->first('equipment_id')">
-                            <x-input.select wire:model="equipment_id" id="equipment_id" clearSelection disabledSelected refreshData iteration="{{ $iteration }}" placeholder="Select Equipment" fullWidth>
+                            <x-input.select wire:model="equipment_id" id="equipment_id" clearSelection disabledSelected iteration="{{ $iteration }}" placeholder="Select Equipment" fullWidth inModal>
                                 @foreach ($equipmentList as $equipment)
                                 @if($equipment['avaliable'] == true)
                                     <option value="{{ $equipment['id'] }}">{{ $equipment['name'] }} ({{ $equipment['tag'] }})</option>
@@ -176,7 +176,7 @@
 
                         <!-- Details -->
                         <x-input.group label="Details" for="details" :error="$errors->first('editing.loan.details')">
-                            <x-input.textarea wire:model="editing.loan.details" id="details" rows="8" />
+                            <x-input.textarea wire:model.defer="editing.loan.details" id="details" rows="8" />
                         </x-input.group>
                     </div>
 
