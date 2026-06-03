@@ -55,7 +55,7 @@ export default function Student() {
                     value={search}
                 />
                 <Keyboard
-                    sx={{ zoom: 1.6 }}
+                    sx={{ zoom: 1.6, width: '100%', maxWidth: 750 }}
                     onChange={value => {
                         console.log('Keyboard value', value);
                         setSearch(value);

@@ -244,7 +244,7 @@ export default function StaffBooking() {
                                 onChange={setSearch}
                             />
                             <Keyboard
-                                sx={{ zoom: 1.5 }}
+                                sx={{ zoom: 1.5, width: '100%', maxWidth: 750 }}
                                 onChange={setSearch}
                             />
                         </Stack>
