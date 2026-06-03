@@ -127,8 +127,8 @@
                         </x-input.group>
 
                         <x-input.group label="Checkout Screen Authoriser" for="booking_authoriser_user_id" :error="$errors->first('editing.booking_authoriser_user_id')">
-                            <x-input.select wire:model="editing.booking_authoriser_user_id" id="booking_authoriser_user_id" iteration="{{ $key }}">
-                                <option value="">— None —</option>
+                            <x-input.select wire:model="editing.booking_authoriser_user_id" id="booking_authoriser_user_id" iteration="{{ $key }}" fullWidth>
+                                <option value="">None</option>
                                 @foreach ($allStaff as $staff)
                                     <option
                                         value="{{ $staff['id'] }}"
